@@ -27,6 +27,7 @@
     ```
 - Python
     ```sh
+    replace: 20.321ms
     non-compiled: 127.899ms
     compiled: 47.473ms
     ```
