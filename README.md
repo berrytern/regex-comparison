@@ -9,6 +9,11 @@
     33.001282ms
     Some("BRAHMA DUPLO MALTE (PACK C/15 UNIDADES)")
     ```
+- Python calling rust
+    ```sh
+    66.677ms
+    BRAHMA DUPLO MALTE (PACK C/15 UNIDADES)
+    ```
 - Python  compiled
     ```sh
     276.98562500154367ms
