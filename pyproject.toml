@@ -1,0 +1,12 @@
+[project]
+name = "regex-comparison"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
