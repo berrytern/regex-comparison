@@ -10,3 +10,7 @@ dependencies = []
 [build-system]
 requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
+
+[tool.uv]
+# Tells uv to install dependencies but NOT the project itself
+package = false
