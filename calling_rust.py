@@ -20,6 +20,6 @@ process('LATA 310 ML', 'BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT')
 import re
 
 
-
+print("-----------\tCalling rust (bulk)\t-----------")
 print(f'{time*1000}ms')
-print(process('LATA 310 ML', 'BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT'))
+# print(process('LATA 310 ML', 'BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT'))

@@ -84,5 +84,7 @@ def process(dsproduto, embalagem):
                 return "BRAHMA CHOPP (PACK C/ 15 UNIDADES)"
         return 'BRAHMA CHOPP'
 
+print("-----------\tDefault re non-compiled\t-----------")
+print("search time:")
 print(f'{time*1000}ms')
-print(process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML'))
+# print(process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML'))

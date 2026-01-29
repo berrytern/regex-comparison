@@ -15,6 +15,7 @@ import re
 description = "arroz com farofa FD 1 real"
 """)
 
+print("\n-----------\tstring replace vs regex\t-----------")
 print(f'replace: {time_replace*1000:.3f}ms')
 print(f'non-compiled: {time*1000:.3f}ms')
 print(f'compiled: {time_compiled*1000:.3f}ms')

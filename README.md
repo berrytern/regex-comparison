@@ -10,22 +10,23 @@ Results based on **100,000 iterations** of a complex pattern matching task.
 
 ### 🔍 Search / Match Performance
 
-| Strategy | Time | Notes |
-| :--- | :--- | :--- |
-| **Rust (Lazy Static)** | **~33 ms** | Compiled once, reused (Zero-overhead) |
-| **Python (Calling Rust)** | ~66 ms | FFI overhead included |
-| **Python (Compiled)** | ~276 ms | Using `re.compile()` beforehand |
-| **Python (Non-Compiled)** | ~867 ms | Compiling inline every iteration |
+| Strategy | Time | Notes | Performance Reference |
+| :--- | :--- | :--- | :--- |
+| **Rust (Lazy Static)** | **~20.17ms** | Compiled once, reused (Zero-overhead) | 7.24x |
+| **Python (Calling Rust)** | ~91.10 ms | FFI overhead included (is_match) | 1.60x |
+| **Python (Calling Rust)** | ~111.44 ms | FFI overhead included(search) | 1.31x |
+| **Python (Compiled)** | ~146.13 ms | Using `re.compile()` beforehand | 1x |
+| **Python (Non-Compiled)** | ~330.34 ms | Compiling inline every iteration | 0.44x |
 
 ### 🔄 Replace / Sub Performance
 
-| Strategy | Time | Notes |
-| :--- | :--- | :--- |
-| **Rust (String Replace)** | **~11 ms** | Native string replacement |
-| **Rust (Regex Replace)** | ~17 ms | `Regex::replace` |
-| **Python (String Replace)** | ~20 ms | Native `.replace()` |
-| **Python (Compiled Regex)** | ~47 ms | `re_compiled.sub()` |
-| **Python (Non-Compiled)** | ~127 ms | `re.sub()` inline |
+| Strategy | Time | Notes | Performance Reference |
+| :--- | :--- | :--- | :--- |
+| **Rust (String Replace)** | **~7.07 ms** | Native string replacement | ~3.10x |
+| **Rust (Regex Replace)** | ~10.36 ms | `Regex::replace` | ~2.12x |
+| **Python (String Replace)** | ~10.55 ms | Native `.replace()` | ~2.08x |
+| **Python (Compiled Regex)** | ~21.95 ms | `re_compiled.sub()` | 1x |
+| **Python (Non-Compiled)** | ~52.65 ms | `re.sub()` inline | ~0.42x |
 
 ---
 
@@ -84,8 +85,6 @@ cargo run --release
 ### Python Benchmarks
 Run the individual scripts to test different scenarios:
 ```bash
-uv run python calling_rust.py
-uv run python re_compiled.py
-uv run python re_non_compiled.py
-uv run python re_sub.py
+chmod +x ./benchmark.sh
+./benchmark.sh
 ```
