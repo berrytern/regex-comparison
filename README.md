@@ -4,19 +4,31 @@ This repository benchmarks Regular Expression (Regex) performance between **Rust
 
 The goal is to demonstrate how proper static initialization (using `once_cell::sync::Lazy` in Rust) allows the regex engine to outperform Python significantly, whereas improper runtime compilation can lead to poor performance.
 
-## ⚡ Benchmark Results
+## ⚡ Benchmark Results - Python 3.14
 
 Results based on **100,000 iterations** of a complex pattern matching task.
 
-### 🔍 Search / Match Performance
+### 🔍 Search Performance
 
 | Strategy | Time | Notes | Performance Reference |
 | :--- | :--- | :--- | :--- |
-| **Rust (Lazy Static)** | **~20.17ms** | Compiled once, reused (Zero-overhead) | 7.24x |
-| **Python (Calling Rust)** | ~91.10 ms | FFI overhead included (is_match) | 1.60x |
-| **Python (Calling Rust)** | ~111.44 ms | FFI overhead included(search) | 1.31x |
-| **Python (Compiled)** | ~146.13 ms | Using `re.compile()` beforehand | 1x |
-| **Python (Non-Compiled)** | ~330.34 ms | Compiling inline every iteration | 0.44x |
+| **Rust (Lazy Static)** | **~49.89ms** | Compiled once, reused (Zero-overhead) | ~2.80x |
+| **Python (Calling Rust)** | ~87.20 ms | FFI overhead included(compile) | ~1.61x |
+| **Python (Calling Rust)** | ~120.44 ms | FFI overhead included(ReRu.search) | ~1.16x |
+| **Python (Compiled)** | ~140.12 ms | Using `re.compile()` beforehand | 1x |
+| **Python (Non-Compiled)** | ~263.63 ms | Compiling inline every iteration | ~0.53 |
+
+### 🔍 Match Performance
+
+| Strategy | Time | Notes | Performance Reference |
+| :--- | :--- | :--- | :--- |
+| **Rust (Lazy Static)** | **~20.17ms** | Compiled once, reused (Zero-overhead) | ~3.33x |
+| **Python (Calling Rust)** | ~48.70 ms | FFI overhead included(compile - is_match) | ~1.38x |
+| **Python (Calling Rust)** | ~60.27 ms | FFI overhead included(compile - find_indices) | ~1.11 |
+| **Python (Calling Rust)** | ~66.15 ms | FFI overhead included(compile) | ~1.01x |
+| **Python (Compiled)** | ~67.13 ms | Using `re.compile()` beforehand | 1x |
+| **Python (Calling Rust)** | ~92.09 ms | FFI overhead included(ReRu.match) | ~0.73x |
+| **Python (Non-Compiled)** | ~168.76 ms | Compiling inline every iteration | ~0.39x |
 
 ### 🔄 Replace / Sub Performance
 
@@ -26,7 +38,7 @@ Results based on **100,000 iterations** of a complex pattern matching task.
 | **Rust (Regex Replace)** | ~10.36 ms | `Regex::replace` | ~2.12x |
 | **Python (String Replace)** | ~10.55 ms | Native `.replace()` | ~2.08x |
 | **Python (Compiled Regex)** | ~21.95 ms | `re_compiled.sub()` | 1x |
-| **Python (Non-Compiled)** | ~52.65 ms | `re.sub()` inline | ~0.42x |
+| **Python (Non-Compiled)** | ~45.51 ms | `re.sub()` inline | ~0.48x |
 
 ---
 

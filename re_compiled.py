@@ -42,7 +42,7 @@ def process(dsproduto, embalagem):
                 if RE_BRAHM9.search(dsproduto):
                     return "BRAHMA DUPLO MALTE (PACK C/15 UNIDADES)"
             return "BRAHMA DUPLO MALTE"
-        if rRE_BRAHM7.search(dsproduto) and embalagem in [
+        if RE_BRAHM7.search(dsproduto) and embalagem in [
             "LATA 310 ML",
             "LATA 410 ML",
         ]:
@@ -53,6 +53,60 @@ def process(dsproduto, embalagem):
         return 'BRAHMA CHOPP'
 process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML')
               """)
+
+time_match = timeit("process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML')", number=100000, setup="""
+import re
+RE_BRAHM0 = re.compile(r"BRAHM")
+RE_BRAHM1 = re.compile(r"TOST")
+RE_BRAHM2 = re.compile(r"ESCU")
+RE_BRAHM3 = re.compile(r"TRIG")
+RE_BRAHM4 = re.compile(r"MALZ")
+RE_BRAHM5 = re.compile(r"XTR|LAGER")
+RE_BRAHM6 = re.compile(r"DUPL|MALT|\bDM\b")
+RE_BRAHM7 = re.compile(r"PAC?K?|C/?")
+RE_BRAHM8 = re.compile(r"\b6\b")
+RE_BRAHM9 = re.compile(r"\b15\b")
+def process(dsproduto, embalagem):
+    if RE_BRAHM0.match(dsproduto):
+        if embalagem == "LATA 350 ML":
+            if RE_BRAHM1.match(dsproduto):
+                return "BRAHMA DUPLO MALTE TOSTADA"
+            if RE_BRAHM2.match(dsproduto):
+                return "BRAHMA DUPLO MALTE ESCURA"
+            if RE_BRAHM3.match(dsproduto):
+                return "BRAHMA DUPLO MALTE TRIGO"
+        if RE_BRAHM4.match(dsproduto) and embalagem in [
+            "LATA 350 ML",
+            "GARRAFA LONG NECK LN ONE WAY DESCARTAVEL 355 ML",
+        ]:
+            return "BRAHMA MALZBIER"
+        if RE_BRAHM5.match(dsproduto) and embalagem in [
+            "LATA 350 ML",
+            "GARRAFA LONG NECK LN ONE WAY DESCARTAVEL 355 ML",
+        ]:
+            return "BRAHMA EXTRA LAGER"
+        if RE_BRAHM6.match(dsproduto):
+            if RE_BRAHM7.match(dsproduto) and embalagem in [
+                "LATA 310 ML",
+                "LATA 410 ML",
+            ]:
+                if RE_BRAHM8.match(dsproduto):
+                    return "BRAHMA DUPLO MALTE (PACK C/ 6 UNIDADES)"
+                if RE_BRAHM9.match(dsproduto):
+                    return "BRAHMA DUPLO MALTE (PACK C/15 UNIDADES)"
+            return "BRAHMA DUPLO MALTE"
+        if RE_BRAHM7.match(dsproduto) and embalagem in [
+            "LATA 310 ML",
+            "LATA 410 ML",
+        ]:
+            if RE_BRAHM8.match(dsproduto):
+                return "BRAHMA CHOPP (PACK C/ 6 UNIDADES)"
+            if RE_BRAHM9.match(dsproduto):
+                return "BRAHMA CHOPP (PACK C/ 15 UNIDADES)"
+        return 'BRAHMA CHOPP'
+process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML')
+              """)
+
 import re
 
 
@@ -98,4 +152,7 @@ def process(dsproduto, embalagem):
 print("-----------\tDefault re compiled\t-----------")
 print("search time:")
 print(f'{time*1000}ms')
+# print(process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML'))
+print("match time:")
+print(f'{time_match*1000}ms')
 # print(process('BRAHMA DUPLO MALTE LT 310ML SH C/15 MULT', 'LATA 310 ML'))
