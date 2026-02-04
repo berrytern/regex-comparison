@@ -104,7 +104,7 @@ struct MyData { x: i32 }
 // This is NOT a conversion. It's a pointer cast.
 // You get direct access to `x` in Rust memory.
 let my_obj: &MyData = item.downcast::<MyData>()?.get();
-println!("{}", my_obj.x); 
+println!("{}", my_obj.x);
 
 ```
 

@@ -5,7 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "reru==0.1.2",
+    "flpc>=0.2.5",
+    "reru==0.2.0",
     "rure>=0.2.2",
 ]
 
